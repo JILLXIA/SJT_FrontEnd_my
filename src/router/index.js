@@ -36,7 +36,27 @@ export const constantRouterMap = [
       component: () => import('@/views/dashboard/index')
     }]
   },
-
+  {
+    path: '/hospSet',
+    component: Layout,
+    redirect: '/hospSet/list', // 重定向到里面的一个子路由
+    name: '医院设置管理',
+    meta: { title: '医院设置管理', icon: 'example' },
+    children: [
+      {
+        path: 'list',
+        name: '医院设置列表',
+        component: () => import('@/views/hospSet/list'),
+        meta: { title: '医院设置列表', icon: 'table' }
+      },
+      {
+        path: 'add',
+        name: '医院设置添加',
+        component: () => import('@/views/hospSet/add'),
+        meta: { title: '医院设置添加', icon: 'tree' }
+      }
+    ]
+  },
   {
     path: '/example',
     component: Layout,
