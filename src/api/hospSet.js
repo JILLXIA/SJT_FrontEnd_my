@@ -8,5 +8,25 @@ export default{
       method: 'post',
       data: searchObj // 使用json传递，否则就不是json传递
     })
+  },
+  deleteHospSet(id) {
+    return request({
+      url: `admin/hosp/hospitalSet/${id}`,
+      method: 'delete'
+    })
+  },
+  // 批量删除
+  batchHospSet(idList) {
+    return request({
+      url: `admin/hosp/hospitalSet/batchRemove`,
+      method: 'delete',
+      data: idList
+    })
+  },
+  lockHospSet(id, status) {
+    return request({
+      url: `admin/hosp/hospitalSet/lockHospitalSet/${id}/${status}`,
+      method: 'put'
+    })
   }
 }
