@@ -28,5 +28,28 @@ export default{
       url: `admin/hosp/hospitalSet/lockHospitalSet/${id}/${status}`,
       method: 'put'
     })
+  },
+  saveHospSet(hospSet) {
+    alert(JSON.stringify(hospSet))
+    return request({
+      url: `admin/hosp/hospitalSet/saveHospitalSet`,
+      method: 'post',
+      data: hospSet
+    })
+  },
+  getHospSet(id) {
+    // 根据id查询hospSet
+    return request({
+      url: `admin/hosp/hospitalSet/getHospitalSet/${id}`,
+      method: 'get'
+    })
+  },
+  updateHospSet(updateObj) {
+    // 修改医院设置
+    return request({
+      url: `admin/hosp/hospitalSet/updateHospitalSet`,
+      method: 'post',
+      data: updateObj
+    })
   }
 }
