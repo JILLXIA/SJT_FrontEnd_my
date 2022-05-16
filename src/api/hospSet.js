@@ -30,7 +30,7 @@ export default{
     })
   },
   saveHospSet(hospSet) {
-    alert(JSON.stringify(hospSet))
+    // alert(JSON.stringify(hospSet))
     return request({
       url: `admin/hosp/hospitalSet/saveHospitalSet`,
       method: 'post',

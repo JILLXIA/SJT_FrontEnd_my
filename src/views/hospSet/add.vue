@@ -33,22 +33,23 @@ export default{
     }
   },
   created() {
+    // 组建重用，这个created不会执行多次，得每次让路由重新加载
     // 页面渲染之前执行
     // 获取路由id，调用接口
     if (this.$route.params && this.$route.params.id) {
       const id = this.$route.params.id
       this.getHospSet(id)
+    } else {
+      this.hospSetObj = {}
     }
   },
   methods: {
     getHospSet(id) {
-      alert(id)
       hospSet.getHospSet(id).then(response => {
         this.hospSetObj = response.data
       }).catch()
     },
-    // 添加
-    saveOrUpdate() {
+    save() {
       hospSet.saveHospSet(this.hospSetObj).then(
         response => {
           this.$message({
@@ -59,6 +60,27 @@ export default{
           this.$router.push({ path: '/hospSet/list' })
         }
       ).catch()
+    },
+    edit() {
+      hospSet.updateHospSet(this.hospSetObj).then(
+        response => {
+          this.$message({
+            type: 'success',
+            message: '修改成功!'
+          })
+          // 路由跳转
+          this.$router.push({ path: '/hospSet/list' })
+        }
+      ).catch()
+    },
+    // 添加
+    saveOrUpdate() {
+      // 判断是田间还是修改
+      if (this.hospSetObj.id) {
+        this.edit()
+      } else {
+        this.save()
+      }
     }
 
   }
