@@ -1,0 +1,66 @@
+<template>
+  <div class="app-container">
+    <el-table
+      :data="list"
+      :load="getChildrens"
+      :tree-props="{children: 'children', hasChildren: 'hasChildren'}"
+      style="width: 100%"
+      row-key="id"
+      border
+      lazy>
+      <el-table-column label="名称" width="230" align="left">
+        <template slot-scope="scope">
+          <span>{{ scope.row.name }}</span>
+        </template>
+      </el-table-column>
+
+      <el-table-column label="编码" width="220">
+        <template slot-scope="{row}">
+          {{ row.dictCode }}
+        </template>
+      </el-table-column>
+      <el-table-column label="值" width="230" align="left">
+        <template slot-scope="scope">
+          <span>{{ scope.row.value }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="创建时间" align="center">
+        <template slot-scope="scope">
+          <span>{{ scope.row.createTime }}</span>
+        </template>
+      </el-table-column>
+    </el-table>
+  </div>
+</template>
+
+<script>
+import dict from '@/api/dict'
+export default {
+  data() {
+    return {
+      list: []
+    }
+  },
+  created() {
+    this.getDictList(1)
+  },
+  methods: {
+    test() {
+      alert('test')
+    },
+    getDictList(id) {
+      alert('haha')
+      dict.dictList(id).then(response => {
+        // 接口获取数据字典列表
+        this.list = response.data
+      }).catch()
+    },
+    getChildrens(tree, treeNode, resolve) {
+      dict.dictList(tree.id).then(response => {
+        resolve(response.data)
+      })
+    }
+
+  }
+}
+</script>
